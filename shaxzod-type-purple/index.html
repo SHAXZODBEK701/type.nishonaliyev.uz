@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="uz">
+
+<head>
+    <title>SHAXZOD.TYPE</title>
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="shortcut icon" href="./favicon.ico">
+
+    <style>
+         :root {
+            --bg: #321b2e;
+            --panel: #422a3e;
+            --border: #654759;
+            --muted: #856b7e;
+            --text: #f9e8e8;
+            --accent: #e5bd3c;
+            --good: #e5bd3c;
+            --bad: #ed7e91
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at 50% 65%, #45273e 0%, var(--bg) 70%);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+            min-height: 100vh
+        }
+        
+        button {
+            font: inherit;
+            cursor: pointer;
+            color: inherit
+        }
+        
+        header {
+            max-width: 1400px;
+            margin: auto;
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px
+        }
+        
+        h1 {
+            font: 700 29px system-ui;
+            margin: 0;
+            letter-spacing: -1px
+        }
+        
+        h1 span {
+            color: var(--accent)
+        }
+        
+        h1 small {
+            font-size: 20px;
+            color: #e4cbd5;
+            letter-spacing: 0
+        }
+        
+        header button {
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: #ffffff08;
+            padding: 11px 19px;
+            color: #d6bccb
+        }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 65px 0 20px;
+            flex-wrap: wrap
+        }
+        
+        .toolbar {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            background: #ffffff09;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 9px
+        }
+        
+        .toolbar button {
+            border: 0;
+            background: transparent;
+            border-radius: 13px;
+            color: #9c8294;
+            padding: 12px 15px;
+            font-weight: bold
+        }
+        
+        .toolbar button.active {
+            background: #624354;
+            color: var(--accent)
+        }
+        
+        .divider {
+            height: 25px;
+            width: 1px;
+            background: var(--border);
+            margin: 0 6px
+        }
+        
+        .themes {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 0 0 21px
+        }
+        
+        .theme {
+            height: 37px;
+            width: 55px;
+            border-radius: 25px;
+            border: 1px solid var(--border);
+            background: #ffffff09;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px
+        }
+        
+        .theme.active {
+            outline: 2px solid var(--accent)
+        }
+        
+        .theme i {
+            display: block;
+            width: 10px;
+            height: 23px;
+            border-radius: 8px;
+            background: var(--muted)
+        }
+        
+        .theme i:last-child {
+            background: var(--accent)
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 20px
+        }
+        
+        .test {
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: #ffffff07;
+            padding: 34px 32px 26px;
+            min-height: 510px;
+            box-shadow: 0 20px 70px #130b1425
+        }
+        
+        .timer {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin: 0 0 37px
+        }
+        
+        .timer label,
+        .stat label {
+            font-size: 15px;
+            color: #947b8b;
+            font-weight: 700;
+            letter-spacing: 1px
+        }
+        
+        .timer strong {
+            font-size: 41px;
+            color: var(--accent)
+        }
+        
+        .words {
+            font-size: clamp(24px, 3.1vw, 49px);
+            line-height: 1.65;
+            letter-spacing: .3px;
+            font-weight: 700;
+            min-height: 218px;
+            color: #7d6475;
+            overflow: hidden;
+            max-height: 245px;
+            word-break: break-word;
+            cursor: text;
+            outline: none
+        }
+        
+        .words .correct {
+            color: var(--text)
+        }
+        
+        .words .wrong {
+            color: var(--bad);
+            background: #ee73851c
+        }
+        
+        .words .current {
+            border-left: 3px solid var(--accent);
+            margin-left: -3px;
+            animation: blink 1s step-end infinite
+        }
+        
+        @keyframes blink {
+            50% {
+                border-left-color: transparent
+            }
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 13px;
+            margin-top: 25px
+        }
+        
+        .stat {
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: #ffffff07;
+            padding: 19px;
+            min-height: 115px
+        }
+        
+        .stat:first-child {
+            background: #e6b93a12;
+            border-color: #8a653d
+        }
+        
+        .stat strong {
+            display: block;
+            margin-top: 14px;
+            font-size: 35px
+        }
+        
+        .stat:first-child strong,
+        .stat:last-child strong {
+            color: var(--accent)
+        }
+        
+        .hint {
+            margin-top: 20px;
+            color: #987f90;
+            font-size: 14px;
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap
+        }
+        
+        .status {
+            color: var(--accent)
+        }
+        
+        .result {
+            margin-top: 15px;
+            font-size: 17px;
+            color: var(--accent);
+            min-height: 22px
+        }
+        
+        .mobile-input {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            pointer-events: none
+        }
+        
+        .footer {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            color: #9f8296;
+            text-align: center;
+            font-size: 13px
+        }
+        
+        .footer b {
+            color: var(--accent)
+        }
+        
+        @media(max-width:750px) {
+            header {
+                padding: 18px 14px
+            }
+            h1 {
+                font-size: 22px
+            }
+            h1 small {
+                font-size: 14px
+            }
+            header button {
+                font-size: 12px;
+                padding: 9px
+            }
+            .controls {
+                margin-top: 32px
+            }
+            .toolbar {
+                padding: 4px
+            }
+            .toolbar button {
+                padding: 9px
+            }
+            .test {
+                padding: 22px 17px;
+                min-height: 430px
+            }
+            .words {
+                min-height: 180px;
+                max-height: 230px;
+                font-size: 27px
+            }
+            .stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+            .stat {
+                min-height: 95px
+            }
+            .stat strong {
+                font-size: 28px
+            }
+            .hint {
+                font-size: 12px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>shaxzod<span>.</span><small>type</small></h1>
+        <div><button id="shortcut">tab / esc — restart</button> <button id="restart">restart</button></div>
+    </header>
+    <section class="controls">
+        <div class="toolbar" id="langs"><button class="active" data-lang="uz">uz</button><button data-lang="en">en</button><button data-lang="ru">ru</button>
+            <div class="divider"></div><button data-time="15">15</button><button class="active" data-time="30">30</button><button data-time="60">60</button><button data-time="120">120</button></div>
+    </section>
+    <div class="themes" id="themes"><button class="theme active" data-theme="gold" title="gold"><i></i><i></i></button><button class="theme" data-theme="lime" title="lime"><i></i><i></i></button><button class="theme" data-theme="blue" title="blue"><i></i><i></i></button><button class="theme"
+            data-theme="mint" title="mint"><i></i><i></i></button><button class="theme" data-theme="peach" title="peach"><i></i><i></i></button></div>
+    <main>
+        <div class="test">
+            <div class="timer"><label>TIME</label><strong id="clock">30</strong></div>
+            <div class="words" id="words" tabindex="0" role="textbox" aria-label="Matnni yozishni boshlang"></div><textarea id="typing" class="mobile-input" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Typing input"></textarea>
+            <div class="stats">
+                <div class="stat"><label>WPM</label><strong id="wpm">0</strong></div>
+                <div class="stat"><label>RAW</label><strong id="raw">0</strong></div>
+                <div class="stat"><label>ANIQLIK</label><strong id="accuracy">100%</strong></div>
+                <div class="stat"><label>XATOLAR</label><strong id="errors">0</strong></div>
+                <div class="stat"><label>BEST</label><strong id="best">0</strong></div>
+            </div>
+            <div class="hint"><span id="counts">to‘g‘ri: 0</span><span id="wrongcount">xato: 0</span><span id="backspaces">backspace: 0</span><span class="status" id="status">yozishni boshlang</span></div>
+            <div class="result" id="result"></div>
+        </div>
+    </main>
+    <div class="footer">shaxzod.type · <b>Made by SHAXZODBEK</b> · typing speed test</div>
+    <script>
+        const dictionaries = {
+            uz: 'kod salom tezlik inson klaviatura muvaffaqiyat texnologiya natijador davom kichik boshqaruv dasturlash zamonaviy bilim imkoniyat loyiha kompyuter matn dastur internet oquvchi ustoz vaqt mashq qobiliyat tarmoq ekran sifat ishlash yozish rivojlanish yangi yaxshi yordam sinov xatolar tugma'.split(' '),
+            en: 'person from first want look follow the just large another world code keyboard typing speed practice software develop computer technology learn test accuracy time simple modern result work future'.split(' '),
+            ru: 'код привет скорость человек клавиатура успех технология результат время маленький управление программа компьютер текст интернет ученик работа тест точность мир новый хороший помощь'.split(' ')
+        };
+        let lang = 'uz',
+            duration = 30,
+            remaining = 30,
+            started = false,
+            finished = false,
+            interval = null,
+            startAt = 0,
+            target = '',
+            typed = '',
+            backspaceCount = 0;
+        const $ = id => document.getElementById(id),
+            wordEl = $('words'),
+            input = $('typing');
+
+        function randomText() {
+            let a = dictionaries[lang],
+                out = [];
+            for (let i = 0; i < 95; i++) out.push(a[Math.floor(Math.random() * a.length)]);
+            return out.join(' ')
+        }
+
+        function bestKey() {
+            return 'shaxzod-type-best-' + lang + '-' + duration
+        }
+
+        function best() {
+            return +(localStorage.getItem(bestKey()) || 0)
+        }
+
+        function reset() {
+            clearInterval(interval);
+            interval = null;
+            remaining = duration;
+            started = false;
+            finished = false;
+            startAt = 0;
+            typed = '';
+            backspaceCount = 0;
+            target = randomText();
+            input.value = '';
+            $('clock').textContent = duration;
+            $('result').textContent = '';
+            $('status').textContent = 'yozishni boshlang';
+            $('best').textContent = best();
+            render();
+            stats()
+        }
+
+        function render() {
+            let fragment = document.createDocumentFragment();
+            for (let i = 0; i < target.length; i++) {
+                let s = document.createElement('span');
+                s.textContent = target[i];
+                if (i < typed.length) s.className = typed[i] === target[i] ? 'correct' : 'wrong';
+                else if (i === typed.length) s.className = 'current';
+                fragment.appendChild(s)
+            }
+            wordEl.replaceChildren(fragment);
+            let active = wordEl.querySelector('.current');
+            if (active && started) active.scrollIntoView({
+                block: 'nearest',
+                inline: 'nearest'
+            })
+        }
+
+        function stats() {
+            let correct = 0;
+            for (let i = 0; i < typed.length; i++)
+                if (typed[i] === target[i]) correct++;
+            let errors = typed.length - correct,
+                elapsed = started ? Math.max((Date.now() - startAt) / 1000, .1) : 0;
+            let wpm = elapsed ? Math.round(correct / 5 / (elapsed / 60)) : 0,
+                raw = elapsed ? Math.round(typed.length / 5 / (elapsed / 60)) : 0;
+            $('wpm').textContent = wpm;
+            $('raw').textContent = raw;
+            $('accuracy').textContent = (typed.length ? Math.round(correct / typed.length * 100) : 100) + '%';
+            $('errors').textContent = errors;
+            $('counts').textContent = 'to‘g‘ri: ' + correct;
+            $('wrongcount').textContent = 'xato: ' + errors;
+            $('backspaces').textContent = 'backspace: ' + backspaceCount;
+            return wpm
+        }
+
+        function finish() {
+            if (finished) return;
+            finished = true;
+            clearInterval(interval);
+            remaining = 0;
+            $('clock').textContent = '0';
+            let score = stats();
+            if (score > best()) localStorage.setItem(bestKey(), score);
+            $('best').textContent = best();
+            $('status').textContent = 'test tugadi';
+            $('result').textContent = 'Natija: ' + score + ' WPM · Aniqlik ' + $('accuracy').textContent + ' · Qayta boshlash uchun Tab yoki Esc';
+            input.blur()
+        }
+
+        function start() {
+            if (started || finished) return;
+            started = true;
+            startAt = Date.now();
+            $('status').textContent = 'test davom etmoqda';
+            interval = setInterval(() => {
+                remaining = Math.max(0, duration - Math.floor((Date.now() - startAt) / 1000));
+                $('clock').textContent = remaining;
+                stats();
+                if (remaining <= 0) finish()
+            }, 150)
+        }
+
+        function update(value) {
+            if (finished) return;
+            if (!started && value.length) start();
+            if (value.length < typed.length) backspaceCount += typed.length - value.length;
+            typed = value.slice(0, target.length);
+            input.value = typed;
+            render();
+            stats();
+            if (typed.length >= target.length) finish()
+        }
+        input.addEventListener('input', () => update(input.value));
+        wordEl.addEventListener('click', () => input.focus());
+        wordEl.addEventListener('focus', () => input.focus());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' || (e.key === 'Tab' && !e.shiftKey)) {
+                e.preventDefault();
+                reset();
+                input.focus();
+                return
+            }
+            if (e.ctrlKey || e.metaKey || e.altKey || e.key === 'Shift') return;
+            if (document.activeElement !== input && e.key.length === 1) {
+                input.focus();
+                update(typed + e.key);
+                e.preventDefault()
+            } else if (document.activeElement !== input && e.key === 'Backspace') {
+                input.focus();
+                update(typed.slice(0, -1));
+                e.preventDefault()
+            }
+        });
+        $('restart').onclick = () => {
+            reset();
+            input.focus()
+        };
+        $('shortcut').onclick = () => {
+            reset();
+            input.focus()
+        };
+        $('langs').onclick = e => {
+            let b = e.target.closest('button');
+            if (!b) return;
+            if (b.dataset.lang) {
+                lang = b.dataset.lang;
+                document.querySelectorAll('[data-lang]').forEach(x => x.classList.toggle('active', x === b))
+            }
+            if (b.dataset.time) {
+                duration = +b.dataset.time;
+                document.querySelectorAll('[data-time]').forEach(x => x.classList.toggle('active', x === b))
+            }
+            reset()
+        };
+        const palettes = {
+            gold: ['#e5bd3c', '#321b2e', '#422a3e'],
+            lime: ['#c5d75d', '#202c25', '#2d3b32'],
+            blue: ['#72cfff', '#19273a', '#24354a'],
+            mint: ['#a6edce', '#20332e', '#2b453e'],
+            peach: ['#e7b18a', '#36262d', '#49343a']
+        };
+        $('themes').onclick = e => {
+            let b = e.target.closest('[data-theme]');
+            if (!b) return;
+            document.querySelectorAll('.theme').forEach(x => x.classList.toggle('active', x === b));
+            let [a, bg, p] = palettes[b.dataset.theme];
+            document.documentElement.style.setProperty('--accent', a);
+            document.documentElement.style.setProperty('--bg', bg);
+            document.documentElement.style.setProperty('--panel', p)
+        };
+        reset();
+    </script>
+</body>
+
+</html>
